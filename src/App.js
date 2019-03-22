@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import socket from 'socket.io-client';
+import handler from './socketHandlers';
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: 'Loading',
+      io: {}
+    };
+    handler(socket, (connection) => {
+      this.setState({
+        io: connection
+      });
+      console.log(connection);
+    })
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <div>
+        <header>
+          <h1>{this.state.text}</h1>
         </header>
       </div>
     );
