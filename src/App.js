@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Button from '@material-ui/core/Button'
 import './App.css';
 import socket from 'socket.io-client';
 import handler from './socketHandlers';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: 'Loading',
       io: {}
     };
     handler(socket, (connection) => {
@@ -19,11 +21,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <header>
-          <h1>{this.state.text}</h1>
-        </header>
-      </div>
+      <Router>
+        <div className="main">
+          <div className="buttons">
+            <h2>Welcome to Game</h2>
+            <Button className="button">Host Game</Button>
+            <Button className="button">Join Game</Button>
+          </div>
+        </div>
+      </Router>
     );
   }
 }
