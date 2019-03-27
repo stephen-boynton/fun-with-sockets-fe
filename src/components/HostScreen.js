@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Typography from '@material-ui/core/Typography'
-import socket from 'socket.io-client';
+import SocketContext from '../socketHandlers/socketContext';
 
 class HostScreen extends Component {
   constructor(props) {
@@ -10,15 +9,12 @@ class HostScreen extends Component {
       players: {}
     }
     console.log(this.props);
-    // this.props.io.on('newPlayer', (playerInfo) => {
-    //   this.setState({
-    //     players: {
-    //       ...this.state.players,
-    //       [playerInfo.name]: playerInfo
-    //     }
-    //   })
-    // })
   }
+
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
       <div>
@@ -29,4 +25,10 @@ class HostScreen extends Component {
   }
 }
 
-export default HostScreen;
+const HostWithSocket = props => (
+  <SocketContext.Consumer>
+    {socket => <HostScreen {...props} socket={socket} />}
+  </SocketContext.Consumer>
+)
+
+export default HostWithSocket;
