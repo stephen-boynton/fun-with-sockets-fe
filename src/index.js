@@ -5,12 +5,17 @@ import './index.css';
 import App from './App';
 import HostScreen from './components/HostScreen';
 import * as serviceWorker from './serviceWorker';
+import socket from 'socket.io-client';
+import SocketContext from './socketHandlers/socketContext';
+
 // SOCKET NEEDS TO BE ABOVE THE COMPONENTS PROVIDER HERE?
 ReactDOM.render(<Router>
-  <Switch>
-    <Route path="/" exact component={App} />
-    <Route path="/game/" component={HostScreen} />
-  </Switch>
+  <SocketContext.Provider value={socket('http://localhost:3001')}>
+    <Switch>
+      <Route path="/" exact component={App} />
+      <Route path="/game/" component={HostScreen} />
+    </Switch>
+  </SocketContext.Provider>
 </Router>, document.getElementById('root'));
 
 // ReactDOM.render(<App />, document.getElementById('root'));

@@ -4,7 +4,6 @@ import SocketContext from './socketHandlers/socketContext';
 import './App.css';
 import socket from 'socket.io-client';
 
-const io = socket('http://localhost:3001');
 
 class App extends Component {
   constructor(props) {
@@ -14,10 +13,6 @@ class App extends Component {
       connected: false
     }
   }
-
-  // componentDidMount() {
-  //   io = socket('http://localhost:3001');
-  // }
 
   _joinAsHost = () => {
     this.props.history.push('/game/')
